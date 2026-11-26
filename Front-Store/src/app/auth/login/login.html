@@ -1,0 +1,48 @@
+<!-- Navbar Superior -->
+<header class="navbar">
+    <div class="navbar-logo">DS Catalog</div>
+    <nav class="navbar-menu">
+        <a [routerLink]="['/paginas']" class="menu-item">HOME</a>
+        <a [routerLink]="['/catalogo']" class="menu-item">CATÁLOGO</a>
+        <a [routerLink]="['/login']" class="menu-item active">ADMIN</a>
+    </nav>
+</header>
+
+<main class="login-container">
+    <!-- Lado Esquerdo: Texto e Imagem -->
+    <div class="login-left">
+        <h1>Divulgue seus produtos no DS Catalog</h1>
+        <p>Faça parte do nosso catálogo de divulgação e aumente a venda dos seus produtos.</p>
+    </div>
+
+    <!-- Lado Direito: Card de Login -->
+    <div class="login-right">
+        <div class="login-card">
+            <h2>LOGIN</h2>
+
+            <form (ngSubmit)="fazerLogin()">
+                <div class="input-group">
+                    <input type="email" name="email" [(ngModel)]="form.email" placeholder="Email" required>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" name="password" [(ngModel)]="form.password" placeholder="Senha" required>
+
+                </div>
+
+                <a href="#" class="forgot-password">Esqueci a senha?</a>
+
+                <button type="submit" class="btn-login">
+                    <span class="btn-text">LOGAR</span>
+                    <span class="btn-icon">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </span>
+                </button>
+            </form>
+
+            <div class="register-link">
+                Não tem Cadastro? <a routerLink="/cadastro">CADASTRAR</a>
+            </div>
+        </div>
+    </div>
+</main>

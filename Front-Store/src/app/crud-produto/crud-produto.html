@@ -1,0 +1,107 @@
+<!-- Navbar Superior -->
+<header class="navbar">
+    <div class="navbar-logo">DS Catalog</div>
+    <nav class="navbar-menu">
+        <a [routerLink]="['/paginas']" class="menu-item">HOME</a>
+        <a [routerLink]="['/catalogo']" class="menu-item">CATÁLOGO</a>
+        <a [routerLink]="['/admin/produtos']" routerLinkActive="active" class="menu-item active">ADMIN</a>
+    </nav>
+</header>
+
+<div class="admin-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <nav class="sidebar-menu">
+            <a [routerLink]="['/admin/produtos']" routerLinkActive="active" class="menu-item">Produtos</a>
+            <a href="#" class="menu-item">Categorias</a>
+            <a href="#" class="menu-item">Usuários</a>
+             <a href="#" class="menu-item btn-logout" (click)="sair()">Sair</a>
+        </nav>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        
+        <!-- Topo: Botão Adicionar e Filtros -->
+        <div class="admin-topbar">
+            <a [routerLink]="['/admin/produtos/novo']" class="btn-add">ADICIONAR</a>
+
+            <div class="filter-bar">
+                <div class="input-group">
+                    <input type="text" placeholder="Nome do produto" [(ngModel)]="nomeProduto" (keyup.enter)="filtrar()">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                
+                <div class="select-group">
+                    <select [(ngModel)]="categoriaSelecionada" (change)="filtrar()">
+                        <option value="">Todas as Categorias</option>
+                        <option value="Eletrônicos">Eletrônicos</option>
+                        <option value="Livros">Livros</option>
+                        <option value="Computadores">Computadores</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+
+                <button class="btn-clear-filter" (click)="limparFiltro()">LIMPAR FILTRO</button>
+            </div>
+        </div>
+
+        <!-- Lista de Produtos (Formato de Linha) -->
+        @if (listagem$ | async; as listagem) {
+            <div class="product-list">
+                
+                @for (produto of listagem.content; track produto.id) {
+                    <div class="product-row">
+                        <div class="product-image">
+                            <img [src]="produto.imgUrl" [alt]="produto.name">
+                        </div>
+                        
+                        <div class="product-info">
+                            <h3>{{ produto.name }}</h3>
+                            <div class="price">
+                                <span class="currency">R$</span>
+                                <span class="value">{{ produto.price | number:'1.2-2' }}</span>
+                            </div>
+                            
+                            <!-- Tags de Categorias -->
+                            <div class="categories">
+                                @for (cat of produto.categories; track cat.id) {
+                                    <span class="category-tag">{{ cat.name }}</span>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="product-actions">
+                            <!-- Botão Editar -->
+                            <button class="btn-edit" [routerLink]="['/admin/produtos/editar', produto.id]">EDITAR</button>
+                            <!-- Botão Excluir -->
+                            <button class="btn-delete" (click)="excluirProduto(produto.id)">EXCLUIR</button>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            <!-- Paginação -->
+            <div class="table-footer">
+                <span>Mostrando {{ registroInicial(listagem) }} - {{ registroFinal(listagem) }} de {{ listagem.totalElements }} Registros</span>
+
+                <div class="pagination">
+                    <button class="page-arrow" [class.disabled]="listagem.first" (click)="navegarAnterior(listagem);">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    @for (pagina of paginas(listagem.totalPages); track pagina){
+                        <button class="page-number" [class.active]="pagina === listagem.number" (click)="navegar(pagina)">
+                            {{ pagina + 1 }}
+                        </button>
+                    }
+
+                    <button class="page-arrow" [class.disabled]="listagem.last" (click)="navegarProximo(listagem);">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        }
+    </main>
+</div>

@@ -1,0 +1,45 @@
+<!-- Navbar Superior (mesma do catálogo) -->
+<header class="navbar">
+    <div class="navbar-logo">DS Catalog</div>
+    <nav class="navbar-menu">
+        <a [routerLink]="['/paginas']" class="menu-item">HOME</a>
+        <a [routerLink]="['/catalogo']" class="menu-item active">CATÁLOGO</a>
+       <a [routerLink]="['/login']" routerLinkActive="active" class="menu-item">ADMIN</a>
+    </nav>
+</header>
+
+<main class="desc-container">
+    <!-- Botão Voltar -->
+    <div class="back-link" (click)="voltar()">
+        <i class="fa-solid fa-chevron-left"></i>
+        <span>VOLTAR</span>
+    </div>
+
+    @if (produto$ | async; as produto) {
+        <div class="product-details-card">
+            
+            <!-- Coluna Esquerda: Imagem, Nome e Preço -->
+            <div class="left-column">
+                <div class="image-box">
+                    <img [src]="produto.imgUrl" [alt]="produto.name">
+                </div>
+                <h1 class="product-title">{{ produto.name }}</h1>
+                <div class="product-price">
+                    <span class="currency">R$</span>
+                    <span class="value">{{ produto.price | number:'1.2-2' }}</span>
+                </div>
+            </div>
+
+            <!-- Coluna Direita: Descrição -->
+            <div class="right-column">
+                <div class="description-box">
+                    <h2>Descrição do Produto</h2>
+                    <p>{{ produto.description }}</p>
+                </div>
+            </div>
+
+        </div>
+    } @else {
+        <div class="loading">Carregando informações do produto...</div>
+    }
+</main>

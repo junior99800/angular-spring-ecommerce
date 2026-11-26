@@ -1,0 +1,47 @@
+<!-- Navbar Superior -->
+<header class="navbar">
+    <div class="navbar-logo">
+        DS Catalog
+    </div>
+    <nav class="navbar-menu">
+        <!-- Link da Home -->
+        <a [routerLink]="['/']" routerLinkActive="active" class="menu-item">HOME</a>
+        
+        <!-- Link para o Catálogo no Menu -->
+        <a [routerLink]="['/catalogo']" routerLinkActive="active" class="menu-item">CATÁLOGO</a>
+        
+        <!-- Link para a Página de Login no Menu -->
+        <a [routerLink]="['/login']" routerLinkActive="active" class="menu-item">ADMIN</a>
+    </nav>
+</header>
+
+<!-- Conteúdo Principal -->
+<main class="app-container">
+    
+    <!-- O Card Branco -->
+    <div class="hero-card">
+        
+        <!-- Lado Esquerdo: Texto e Botão -->
+        <div class="hero-text">
+            <h1>Conheça o melhor catálogo de produtos</h1>
+            <p class="subtitle">
+                Ajudaremos você a encontrar os melhores produtos disponíveis no mercado.
+            </p>
+            
+            <!-- Botão customizado apontando para o Catálogo -->
+            <a [routerLink]="['/catalogo']" class="btn-start">
+                <span class="btn-text">INICIE AGORA A SUA BUSCA</span>
+                <span class="btn-icon">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </span>
+            </a>
+        </div>
+
+        <!-- Lado Direito: Imagem -->
+        <div class="hero-image">
+            
+        </div>
+
+    </div>
+
+</main>

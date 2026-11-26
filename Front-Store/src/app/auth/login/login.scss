@@ -1,0 +1,155 @@
+.login-container {
+    display: flex;
+    min-height: calc(100vh - 70px);
+    background-color: var(--cinza-fundo);
+    padding: 40px;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 900px) {
+        flex-direction: column;
+        padding: 20px;
+    }
+}
+
+.login-left {
+    flex: 1;
+    max-width: 500px;
+    
+    h1 {
+        font-size: 42px;
+        color: var(--texto-escuro);
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 18px;
+        color: var(--texto-claro);
+        line-height: 1.5;
+        margin-bottom: 40px;
+    }
+
+    img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+}
+
+.login-right {
+    flex: 1;
+    max-width: 450px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.login-card {
+    background-color: var(--branco);
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    padding: 60px 40px;
+    width: 100%;
+
+    h2 {
+        text-align: center;
+        font-size: 32px;
+        font-weight: 400;
+        color: var(--texto-escuro);
+        margin-bottom: 40px;
+        letter-spacing: 1px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 15px;
+            color: var(--texto-escuro);
+            outline: none;
+            transition: border-color 0.2s;
+
+            &::placeholder {
+                color: #c1c1c1;
+            }
+
+            &:focus {
+                border-color: var(--azul-primario);
+            }
+        }
+    }
+
+    .forgot-password {
+        font-size: 14px;
+        color: var(--azul-primario);
+        text-decoration: none;
+        margin-bottom: 40px;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .btn-login {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--azul-primario);
+        color: var(--branco);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        overflow: hidden;
+        width: 100%;
+        transition: opacity 0.2s;
+        padding: 0;
+
+        &:hover {
+            opacity: 0.9;
+        }
+
+        .btn-text {
+            flex: 1;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .btn-icon {
+            padding: 16px 20px;
+            background-color: rgba(0, 0, 0, 0.15); /* Deixa o lado da seta mais escuro */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .register-link {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 14px;
+        color: var(--texto-claro);
+
+        a {
+            color: var(--azul-primario);
+            font-weight: 700;
+            text-decoration: none;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

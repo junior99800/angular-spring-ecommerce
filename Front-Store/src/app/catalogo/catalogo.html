@@ -1,0 +1,98 @@
+<!-- Navbar Superior -->
+<header class="navbar">
+    <div class="navbar-logo">
+        DS Catalog
+    </div>
+    <nav class="navbar-menu">
+        <a [routerLink]="['/paginas']" routerLinkActive="active" class="menu-item">HOME</a>
+        <a [routerLink]="['/catalogo']" routerLinkActive="active" class="menu-item">CATÁLOGO</a>
+        <a [routerLink]="['/login']" routerLinkActive="active" class="menu-item">ADMIN</a>
+    </nav>
+</header>
+
+<!-- Conteúdo Principal -->
+<main class="catalog-container">
+    
+    <h2 class="page-title">Catálogo de produtos</h2>
+
+    <!-- Barra de Filtros -->
+    <div class="filter-bar">
+        <div class="input-group">
+            <!-- Adicionado [(ngModel)] e evento de Enter para pesquisar -->
+            <input type="text" 
+                   placeholder="Nome do produto" 
+                   [(ngModel)]="nomeProduto" 
+                   (keyup.enter)="filtrar()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        
+        <div class="select-group">
+            <!-- Adicionado [(ngModel)] e evento de change para pesquisar ao trocar -->
+            <select [(ngModel)]="categoriaSelecionada" (change)="filtrar()">
+                <option value="">Todas as Categorias</option>
+                <option value="Eletrônicos">Eletrônicos</option>
+                <option value="Livros">Livros</option>
+                <option value="Computadores">Computadores</option>
+            </select>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+
+        <!-- Adicionado evento de click para limpar -->
+        <button class="btn-clear-filter" (click)="limparFiltro()">LIMPAR FILTRO</button>
+    </div>
+
+        <!-- Grid de Produtos -->
+    @if (listagem$ | async; as listagem) {
+        <div class="product-grid">
+            
+ @for (produto of listagem.content; track produto.id) {
+             <a [routerLink]="['/catalogo', produto.id]" class="product-card">
+        <div class="product-image">
+            <img [src]="produto.imgUrl" [alt]="produto.name">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">{{ produto.name }}</h3>
+            <div class="product-price">
+                <span class="currency">R$</span>
+                <span class="value">{{ produto.price | number:'1.2-2' }}</span>
+            </div>
+        </div>
+    </a>
+            }
+
+            @empty {
+                <div class="empty-state">
+                    <p>Nenhum produto encontrado.</p>
+                </div>
+            }
+
+        </div>
+        <!-- ... restante da paginação ... -->
+
+        <!-- Paginação -->
+        <div class="table-footer">
+            <span>Mostrando {{ registroInicial(listagem) }} - {{ registroFinal(listagem) }} 
+                de {{ listagem.totalElements }} Registros
+            </span>
+<div class="pagination">
+    <!-- Adicionado a classe page-arrow -->
+    <button class="page-arrow" [class.disabled]="listagem.first" (click)="navegarAnterior(listagem);" >
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    @for (pagina of paginas(listagem.totalPages); track pagina){
+        <!-- Adicionado a classe page-number -->
+        <button class="page-number" [class.active]="pagina === listagem.number" (click)="navegar(pagina)">
+            {{ pagina + 1 }}
+        </button>
+    }
+
+    <!-- Adicionado a classe page-arrow -->
+    <button class="page-arrow" [class.disabled]="listagem.last" (click)="navegarProximo(listagem);">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+</div>
+        </div>
+    }
+
+</main>
